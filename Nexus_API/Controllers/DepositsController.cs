@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Nexus_API.Interfaces;
 using Nexus_API.Models.DTOs;
 
@@ -6,47 +6,121 @@ namespace Nexus_API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Produces("application/json")]
 public class DepositsController : ControllerBase
 {
-    private readonly IDepositService _service;
+    private readonly IDepositService _depositService;
 
-    public DepositsController(IDepositService service)
+    public DepositsController(IDepositService depositService)
     {
-        _service = service;
+        _depositService = depositService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<DepositResponse>>> GetAll()
+    [ProducesResponseType(typeof(IEnumerable<DepositResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllDeposits()
     {
-        return Ok(await _service.GetAllAsync());
+        var deposits = await _depositService.GetAllDepositsAsync();
+        return Ok(deposits);
     }
 
-    [HttpGet("{number}")]
-    public async Task<ActionResult<DepositResponse>> GetByNumber(string number)
+    [HttpGet("{номерДепозитногоДоговора}")]
+    [ProducesResponseType(typeof(DepositResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetDepositByNumber(string номерДепозитногоДоговора)
     {
-        var deposit = await _service.GetByNumberAsync(number);
-        if (deposit == null) return NotFound();
-        return Ok(deposit);
+        try
+        {
+            var deposit = await _depositService.GetDepositByNumberAsync(номерДепозитногоДоговора);
+            return Ok(deposit);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpGet("search")]
+    [ProducesResponseType(typeof(IEnumerable<DepositResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SearchDeposits([FromQuery] string term)
+    {
+        var deposits = await _depositService.SearchDepositsAsync(term);
+        return Ok(deposits);
+    }
+
+    [HttpGet("status/{статус}")]
+    [ProducesResponseType(typeof(IEnumerable<DepositResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetDepositsByStatus(string статус)
+    {
+        var deposits = await _depositService.GetDepositsByStatusAsync(статус);
+        return Ok(deposits);
+    }
+
+    [HttpGet("type/{типДепозита}")]
+    [ProducesResponseType(typeof(IEnumerable<DepositResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetDepositsByType(string типДепозита)
+    {
+        var deposits = await _depositService.GetDepositsByTypeAsync(типДепозита);
+        return Ok(deposits);
     }
 
     [HttpPost]
-    public async Task<ActionResult<DepositResponse>> Create(DepositCreateRequest request)
+    [ProducesResponseType(typeof(DepositResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateDeposit([FromBody] DepositCreateRequest request)
     {
-        var deposit = await _service.CreateAsync(request);
-        return CreatedAtAction(nameof(GetByNumber), new { number = deposit.НомерДепозитногоДоговора }, deposit);
+        try
+        {
+            var createdDeposit = await _depositService.CreateDepositAsync(request);
+            return CreatedAtAction(nameof(GetDepositByNumber), new { номерДепозитногоДоговора = createdDeposit.НомерДепозитногоДоговора }, createdDeposit);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
-    [HttpPut("{number}")]
-    public async Task<IActionResult> Update(string number, DepositUpdateRequest request)
+    [HttpPut("{номерДепозитногоДоговора}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateDeposit(string номерДепозитногоДоговора, [FromBody] DepositUpdateRequest request)
     {
-        await _service.UpdateAsync(number, request);
-        return NoContent();
+        try
+        {
+            await _depositService.UpdateDepositAsync(номерДепозитногоДоговора, request);
+            return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
-    [HttpDelete("{number}")]
-    public async Task<IActionResult> Delete(string number)
+    [HttpDelete("{номерДепозитногоДоговора}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteDeposit(string номерДепозитногоДоговора)
     {
-        await _service.DeleteAsync(number);
-        return NoContent();
+        try
+        {
+            await _depositService.DeleteDepositAsync(номерДепозитногоДоговора);
+            return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
-}
+    [HttpGet("by-account/{номерСчета}")]
+    [ProducesResponseType(typeof(IEnumerable<DepositResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetDepositsByAccount(string номерСчета)
+    {
+        var deposits = await _depositService.GetDepositsByAccountAsync(номерСчета);
+        return Ok(deposits);
+    }
+} 

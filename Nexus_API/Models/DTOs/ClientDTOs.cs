@@ -49,15 +49,28 @@ public record ClientCreateRequest(
     string? ДополнительныеСведения);
 
 public record ClientUpdateRequest(
+    string? СерияПаспорта,
+    string? НомерПаспорта,
     string? Фамилия,
     string? Имя,
     string? Отчество,
+    string? Пол,
+    DateOnly? ДатаВыдачиПаспорта,
+    string? КемВыданПаспорт,
+    string? МестоРождения,
+    DateOnly? ДатаРождения,
+    string? АдресРегистрации,
+    string? АдресПроживания,
+    string? СемейноеПоложение,
     string? НомерТелефона,
     string? Email,
-    string? АдресПроживания,
-    string? СтатусКлиента,
-    string? Работодатель,
+    string? Инн,
+    string? Снилс,
     string? ИсточникДохода,
+    string? Работодатель,
     decimal? УровеньДохода,
-    string? СемейноеПоложение,
+    string? СтатусКлиента,
+    DateOnly? ДатаРегистрацииВБанке,
     string? ДополнительныеСведения);
+
+

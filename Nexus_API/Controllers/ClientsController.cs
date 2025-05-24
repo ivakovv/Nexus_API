@@ -48,11 +48,11 @@ public class ClientsController : ControllerBase
         return Ok(clients);
     }
 
-    [HttpGet("status/{status}")]
+    [HttpGet("status/{статус}")]
     [ProducesResponseType(typeof(IEnumerable<ClientResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetClientsByStatus(string status)
+    public async Task<IActionResult> GetClientsByStatus(string статус)
     {
-        var clients = await _clientService.GetClientsByStatusAsync(status);
+        var clients = await _clientService.GetClientsByStatusAsync(статус);
         return Ok(clients);
     }
 
@@ -108,4 +108,5 @@ public class ClientsController : ControllerBase
             return NotFound(ex.Message);
         }
     }
+
 }

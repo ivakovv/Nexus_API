@@ -1,12 +1,16 @@
-﻿using Nexus_API.Models.DTOs;
+using Nexus_API.Models.DTOs;
 
 namespace Nexus_API.Interfaces;
 
 public interface IDepositService
 {
-    Task<IEnumerable<DepositResponse>> GetAllAsync();
-    Task<DepositResponse?> GetByNumberAsync(string номерДоговора);
-    Task<DepositResponse> CreateAsync(DepositCreateRequest request);
-    Task UpdateAsync(string номерДоговора, DepositUpdateRequest request);
-    Task DeleteAsync(string номерДоговора);
+    Task<IEnumerable<DepositResponse>> GetAllDepositsAsync();
+    Task<DepositResponse> GetDepositByNumberAsync(string номерДепозитногоДоговора);
+    Task<DepositResponse> CreateDepositAsync(DepositCreateRequest depositDto);
+    Task UpdateDepositAsync(string номерДепозитногоДоговора, DepositUpdateRequest depositDto);
+    Task DeleteDepositAsync(string номерДепозитногоДоговора);
+    Task<IEnumerable<DepositResponse>> SearchDepositsAsync(string searchTerm);
+    Task<IEnumerable<DepositResponse>> GetDepositsByStatusAsync(string статус);
+    Task<IEnumerable<DepositResponse>> GetDepositsByTypeAsync(string типДепозита);
+    Task<IEnumerable<DepositResponse>> GetDepositsByAccountAsync(string номерСчета);
 }

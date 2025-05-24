@@ -19,7 +19,7 @@ public partial class ГрафикПлатежей
 
     public string Статус { get; set; } = null!;
 
-    public DateOnly? ДатаОплаты { get; set; }
+    public DateOnly ДатаОплаты { get; set; }
 
     public virtual Кредит НомерДоговораNavigation { get; set; } = null!;
 }

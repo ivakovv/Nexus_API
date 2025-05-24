@@ -33,7 +33,7 @@ namespace Nexus_API.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound($"Client photo not found for client {clientId}");
+                return NotFound($"Client photo not found for client {clientId}" + ex.Message);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Nexus_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Error uploading client photo");
+                return StatusCode(500, "Error uploading client photo" + ex.Message);
             }
         }
 

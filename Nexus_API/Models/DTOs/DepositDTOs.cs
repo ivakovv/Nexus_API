@@ -1,31 +1,49 @@
-﻿namespace Nexus_API.Models.DTOs;
+namespace Nexus_API.Models.DTOs;
+
+public record DepositAccountResponse(
+    string НомерДепозитногоДоговора,
+    string НомерСчета,
+    string Статус
+);
 
 public record DepositResponse(
     string НомерДепозитногоДоговора,
-    string Валюта,
-    DateOnly ДатаОткрытия,
-    DateOnly ДатаЗакрытия,
-    DateOnly ДатаСледующейКапитализации,
-    int? МинимальныйСрок,
     string Название,
-    decimal ПроцентНалога,
-    decimal ПроцентнаяСтавка,
-    string СпособВыплаты,
+    string ТипДепозита,
     decimal СуммаДепозита,
-    string ТипДепозита);
+    string Валюта,
+    decimal ПроцентнаяСтавка,
+    decimal ПроцентНалога,
+    DateOnly ДатаОткрытия,
+    DateOnly? ДатаЗакрытия,
+    string СпособВыплаты,
+    int? МинимальныйСрок,
+    DateOnly? ДатаСледующейКапитализации,
+    DepositAccountResponse? ДепозитныйСчет
+);
 
 public record DepositCreateRequest(
-    string Валюта,
-    int? МинимальныйСрок,
     string Название,
-    decimal ПроцентНалога,
-    decimal ПроцентнаяСтавка,
-    string СпособВыплаты,
+    string ТипДепозита,
     decimal СуммаДепозита,
-    string ТипДепозита);
+    string Валюта,
+    decimal ПроцентнаяСтавка,
+    decimal ПроцентНалога,
+    string СпособВыплаты,
+    int? МинимальныйСрок,
+    string НомерСчета
+);
 
 public record DepositUpdateRequest(
-    DateOnly ДатаЗакрытия,
-    DateOnly ДатаСледующейКапитализации,
+    string? Название,
+    string? ТипДепозита,
+    decimal? СуммаДепозита,
+    string? Валюта,
+    decimal? ПроцентнаяСтавка,
+    decimal? ПроцентНалога,
     string? СпособВыплаты,
-    decimal? ПроцентнаяСтавка);
+    int? МинимальныйСрок,
+    DateOnly? ДатаЗакрытия,
+    DateOnly? ДатаСледующейКапитализации,
+    string? Статус
+); 

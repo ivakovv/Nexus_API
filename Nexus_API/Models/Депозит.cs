@@ -21,13 +21,13 @@ public partial class Депозит
 
     public DateOnly ДатаОткрытия { get; set; }
 
-    public DateOnly ДатаЗакрытия { get; set; }
+    public DateOnly? ДатаЗакрытия { get; set; }
 
     public string СпособВыплаты { get; set; } = null!;
 
     public int? МинимальныйСрок { get; set; }
 
-    public DateOnly ДатаСледующейКапитализации { get; set; }
+    public DateOnly? ДатаСледующейКапитализации { get; set; }
 
     public virtual ДепозитныеСчета? ДепозитныеСчета { get; set; }
 }

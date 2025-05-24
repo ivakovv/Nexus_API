@@ -94,16 +94,46 @@ public class CreditTypeService : ICreditTypeService
 
         if (видКредита == null) return;
 
-        if (request.Активный != null) видКредита.Активный = request.Активный.Value;
-        if (request.БазоваяСтавка != null) видКредита.БазоваяСтавка = request.БазоваяСтавка.Value;
-        if (request.Категория != null) видКредита.Категория = request.Категория;
-        if (request.МаксимальнаяСумма != null) видКредита.МаксимальнаяСумма = request.МаксимальнаяСумма.Value;
-        if (request.МаксимальныйСрок != null) видКредита.МаксимальныйСрок = request.МаксимальныйСрок.Value;
-        if (request.МинимальнаяСумма != null) видКредита.МинимальнаяСумма = request.МинимальнаяСумма.Value;
-        if (request.МинимальныйСрок != null) видКредита.МинимальныйСрок = request.МинимальныйСрок.Value;
-        if (request.Название != null) видКредита.Название = request.Название;
-        if (request.НеобходимоСтрахование != null) видКредита.НеобходимоСтрахование = request.НеобходимоСтрахование.Value;
-        if (request.Описание != null) видКредита.Описание = request.Описание;
+        if (request.Активный != null)
+        {
+            видКредита.Активный = request.Активный.Value;
+        }
+        if (request.БазоваяСтавка != null)
+        {
+            видКредита.БазоваяСтавка = request.БазоваяСтавка.Value;
+        }
+        if (request.Категория != null)
+        {
+            видКредита.Категория = request.Категория;
+        }
+        if (request.МаксимальнаяСумма != null)
+        {
+            видКредита.МаксимальнаяСумма = request.МаксимальнаяСумма.Value;
+        }
+        if (request.МаксимальныйСрок != null)
+        {
+            видКредита.МаксимальныйСрок = request.МаксимальныйСрок.Value;
+        }
+        if (request.МинимальнаяСумма != null)
+        {
+            видКредита.МинимальнаяСумма = request.МинимальнаяСумма.Value;
+        }
+        if (request.МинимальныйСрок != null)
+        {
+            видКредита.МинимальныйСрок = request.МинимальныйСрок.Value;
+        }
+        if (request.Название != null)
+        {
+            видКредита.Название = request.Название;
+        }
+        if (request.НеобходимоСтрахование != null)
+        {
+            видКредита.НеобходимоСтрахование = request.НеобходимоСтрахование.Value;
+        }
+        if (request.Описание != null)
+        {
+            видКредита.Описание = request.Описание;
+        }
 
         await _context.SaveChangesAsync();
     }

@@ -140,12 +140,8 @@ public class ClientService : IClientService
 
     public async Task DeleteClientAsync(int id)
     {
-        var клиент = await _context.Клиентs.FindAsync(id);
-
-        if (клиент is null)
-            throw new KeyNotFoundException($"Клиент с ID {id} не найден");
-
-        _context.Клиентs.Remove(клиент);
+        var клиент = await _context.Клиентs.FindAsync(id) ?? throw new KeyNotFoundException($"Клиент с ID {id} не найден");
+        клиент.СтатусКлиента = "Удален";
         await _context.SaveChangesAsync();
     }
 

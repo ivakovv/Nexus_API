@@ -15,7 +15,7 @@ public partial class Кредит
 
     public DateOnly ДатаВыдачи { get; set; }
 
-    public DateOnly ДатаЗакрытия { get; set; }
+    public DateOnly? ДатаЗакрытия { get; set; }
 
     public decimal Ставка { get; set; }
 
